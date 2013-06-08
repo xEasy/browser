@@ -33,20 +33,21 @@ class Browser
   alias :ua= :user_agent=
 
   NAMES = {
-    :android    => "Android",
-    :blackberry => "BlackBerry",
-    :chrome     => "Chrome",
-    :core_media => "Apple CoreMedia",
-    :firefox    => "Firefox",
-    :ie         => "Internet Explorer",
-    :ipad       => "iPad",
-    :iphone     => "iPhone",
-    :ipod       => "iPod Touch",
-    :opera      => "Opera",
-    :phantom_js => "PhantomJS",
-    :psp        => "PlayStation Portable",
-    :quicktime  => "QuickTime",
-    :safari     => "Safari",
+    :android      => "Android",
+    :blackberry   => "BlackBerry",
+    :chrome_frame => "IE+ChromeFrame", # Must precede :chrome
+    :chrome       => "Chrome",
+    :core_media   => "Apple CoreMedia",
+    :firefox      => "Firefox",
+    :ie           => "Internet Explorer",
+    :ipad         => "iPad",
+    :iphone       => "iPhone",
+    :ipod         => "iPod Touch",
+    :opera        => "Opera",
+    :phantom_js   => "PhantomJS",
+    :psp          => "PlayStation Portable",
+    :quicktime    => "QuickTime",
+    :safari       => "Safari",
 
     # This must be last item, since Ruby 1.9+ has ordered keys.
     :other      => "Other",
@@ -54,7 +55,8 @@ class Browser
 
   VERSIONS = {
     :default => /(?:Version|MSIE|Firefox|Chrome|CriOS|QuickTime|BlackBerry[^\/]+|CoreMedia v|PhantomJS)[\/ ]?([a-z0-9.]+)/i,
-    :opera => /Opera\/.*? Version\/([\d.]+)/
+    :opera => /Opera\/.*? Version\/([\d.]+)/,
+    :chrome_frame => /chromeframe\/([\d.]+)/
   }
 
   # Create a new browser instance and set
@@ -104,7 +106,7 @@ class Browser
 
   # Detect if browser is WebKit-based.
   def webkit?
-    !!(ua =~ /AppleWebKit/i)
+    !!(ua =~ /AppleWebKit/i) || chrome_frame?
   end
 
   # Detect if browser is QuickTime
@@ -134,7 +136,12 @@ class Browser
 
   # Detect if browser is Chrome.
   def chrome?
-    !!(ua =~ /Chrome|CriOS/)
+    !!(ua =~ /Chrome|CriOS/) || chrome_frame?
+  end
+
+  # Detect if browser is using ChromeFrame.
+  def chrome_frame?
+    !!(ua =~ /chromeframe/)
   end
 
   # Detect if browser is Opera.
