@@ -45,6 +45,7 @@ browser.phantom_js?
 browser.quicktime?
 browser.core_media?
 browser.silk?
+browser.wechat?         # wechat browser?
 browser.known?          # has the browser been successfully detected?
 browser.meta            # an array with several attributes
 browser.to_s            # the meta info joined by space

@@ -191,6 +191,11 @@ class Browser
     !!(ua =~ /Silk/)
   end
 
+  # Detect if browser is Wechat.
+  def wechat?
+    !!(ua =~ /MicroMessenger|micromessenger/)
+  end
+
   def known?
     id != :other
   end

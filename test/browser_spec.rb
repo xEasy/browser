@@ -121,6 +121,11 @@ describe Browser do
     refute @browser.mac?
   end
 
+  it "detects wechat" do
+    @browser.ua = $ua["WECHAT"]
+    assert @browser.wechat?
+  end
+
   it "detects ios6" do
     @browser.ua = $ua["IOS6"]
     assert @browser.ios?
